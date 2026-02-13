@@ -230,6 +230,7 @@ function _suggest_ai() {
         # Reset user input
         BUFFER=""
         CURSOR=0
+        zle reset-prompt
 
         zle -U "$suggestion"
     elif [[ "$first_char" == '+' ]]; then
