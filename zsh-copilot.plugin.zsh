@@ -64,7 +64,7 @@ function _fetch_suggestions() {
     if [[ "$ZSH_COPILOT_AI_PROVIDER" == "openai" ]]; then
         # OpenAI's API payload
         data="{
-            \"model\": \"gpt-4o-mini\",
+            \"model\": \"gpt-5-mini\",
             \"messages\": [
                 {
                     \"role\": \"system\",
@@ -76,7 +76,7 @@ function _fetch_suggestions() {
                 }
             ]
         }"
-        response=$(curl "https://${openai_api_url}/v1/chat/completions" \
+        response=$(curl "${openai_api_url}/v1/chat/completions" \
             --silent \
             -H "Content-Type: application/json" \
             -H "Authorization: Bearer $OPENAI_API_KEY" \
@@ -106,7 +106,7 @@ function _fetch_suggestions() {
                 }
             ]
         }"
-        response=$(curl "https://${anthropic_api_url}/v1/messages" \
+        response=$(curl "${anthropic_api_url}/v1/messages" \
             --silent \
             -H "Content-Type: application/json" \
             -H "x-api-key: $ANTHROPIC_API_KEY" \
@@ -169,8 +169,8 @@ function _show_loading_animation() {
 
 function _suggest_ai() {
     #### Prepare environment
-    local openai_api_url=${OPENAI_API_URL:-"api.openai.com"}
-    local anthropic_api_url=${ANTHROPIC_API_URL:-"api.anthropic.com"}
+    local openai_api_url=${OPENAI_API_URL:-"https://api.openai.com"}
+    local anthropic_api_url=${ANTHROPIC_API_URL:-"https://api.anthropic.com"}
 
     local context_info=""
     if [[ "$ZSH_COPILOT_SEND_CONTEXT" == 'true' ]]; then
